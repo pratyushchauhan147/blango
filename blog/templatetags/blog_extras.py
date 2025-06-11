@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 user_model = get_user_model()
 from django import template
+from django.utils.html import format_html 
 register = template.Library()
 from blog.models import Post
 
@@ -24,13 +25,19 @@ def author_details(author):
 
 @register.simple_tag
 def row():
-    return '<div class="row">'
-
+    return format_html('<div class="row">')
+@register.simple_tag
+def col():
+    return format_html('<div class="row">')
 
 @register.simple_tag
 def endrow():
-    return "</div>"
-    
+    return format_html("</div>")
+
+@register.simple_tag
+def endcol():
+    return format_html("</div>")
+        
 @register.simple_tag(takes_context=True)
 def author_details_tag(context):
     request = context["request"]
