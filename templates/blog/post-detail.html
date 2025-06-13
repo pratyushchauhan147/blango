@@ -2,25 +2,36 @@
 {% load blog_extras cache %}
 
 {% block content %}
-<h2>{{ post.title }}</h2>
-{% row %}
+  <h2>{{ post.title }}</h2>
+
+  {% row %}
     <div class="col">
-        {% include "blog/post-byline.html" %}
+      {% include "blog/post-byline.html" %}
     </div>
-{% endrow %}
-{% row %}
+  {% endrow %}
+
+  {% row %}
     <div class="col">
-        {{ post.content|safe }}
+      {{ post.content|safe }}
     </div>
-{% endrow %}
+  {% endrow %}
+
+  {% if post.author.profile %}
+    {% row %}
+      <div class="col">
+        <h4>About the author</h4>
+        <p>{{ post.author.profile.bio }}</p>
+      </div>
+    {% endrow %}
+  {% endif %}
+
+  {% include "blog/post-comments.html" %}
+
+  {% row %}
+    <div class="col">
+      {% cache 3600 recent_posts post.pk %}
+        {% recent_posts post %}
+      {% endcache %}
+    </div>
+  {% endrow %}
 {% endblock %}
-
-{% include "blog/post-comments.html" %}
-
-{% row %}
-    {% col %}
-        {% cache 3600 recent_posts post %}
-            {% recent_posts post %}
-        {% endcache %}
-    {% endcol %}
-{% endrow %}

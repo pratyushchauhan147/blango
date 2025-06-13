@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-r97+$ik$d_0i13ir^8a2b-y-ila1ym&#%k#fxaca4r8-vg7h9(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = "blango_auth.User"
 ALLOWED_HOSTS = ['*']
 X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
 CSRF_COOKIE_SAMESITE = None
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    "blango_auth",
     'django.contrib.staticfiles','blog',"crispy_forms","crispy_bootstrap5",
      "debug_toolbar",
 ]
