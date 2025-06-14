@@ -1,19 +1,3 @@
-"""blango URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
@@ -22,18 +6,31 @@ from django_registration.backends.activation.views import RegistrationView
 from blango_auth.forms import BlangoRegistrationForm
 import blango_auth.views
 import blog.views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", blog.views.index),
+    
+    # Blog-related URLs
+    path("", blog.views.index, name="home"),
     path("post/<slug>/", blog.views.post_detail, name="blog-post-detail"),
     path("ip/", blog.views.get_ip),
 
-    # REGISTER ROUTE FIRST to override default one
+    # Custom Registration URL FIRST to override django_registration default
     path("accounts/register/", RegistrationView.as_view(form_class=BlangoRegistrationForm), name="django_registration_register"),
+
+    # django-registration activation flow (activation emails, etc.)
     path("accounts/", include("django_registration.backends.activation.urls")),
 
+    # Django's built-in login/logout/password change URLs
+    path("accounts/", include("django.contrib.auth.urls")),
+
+    # Django Allauth URLs (for social authentication like Google)
+    path("accounts/", include("allauth.urls")),
+
+    # Profile page after login
     path("accounts/profile/", blango_auth.views.profile, name="profile"),
 ]
+
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-r97+$ik$d_0i13ir^8a2b-y-ila1ym&#%k#fxaca4r8-vg7h9(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-REGISTRATION_OPEN = False
+
 AUTH_USER_MODEL = "blango_auth.User"
 ALLOWED_HOSTS = ['*']
 X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
@@ -41,15 +41,30 @@ ACCOUNT_ACTIVATION_DAYS = 7
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Application definition
 
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+
+
+
 INSTALLED_APPS = [
+    "django.contrib.sites",
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
+    "django.contrib.messages",
     "blango_auth",
     'django.contrib.staticfiles','blog',"crispy_forms","crispy_bootstrap5",
      "debug_toolbar",
+     "allauth",
+     "allauth.account",
+     "allauth.socialaccount",
+     "allauth.socialaccount.providers.google",
+
 ]
 
 MIDDLEWARE = [
@@ -166,3 +181,4 @@ CACHES = {
     }
 }
 INTERNAL_IPS = ["192.168.11.136"]
+SITE_ID = 1
