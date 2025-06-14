@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-r97+$ik$d_0i13ir^8a2b-y-ila1ym&#%k#fxaca4r8-vg7h9(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+REGISTRATION_OPEN = False
 AUTH_USER_MODEL = "blango_auth.User"
 ALLOWED_HOSTS = ['*']
 X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
@@ -36,6 +37,8 @@ CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SAMESITE = 'None'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+ACCOUNT_ACTIVATION_DAYS = 7
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Application definition
 
 INSTALLED_APPS = [
