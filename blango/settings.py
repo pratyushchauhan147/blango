@@ -65,6 +65,7 @@ INSTALLED_APPS = [
      "allauth.socialaccount",
      "allauth.socialaccount.providers.google",
      'rest_framework',
+     "rest_framework.authtoken",
 
 ]
 
@@ -183,3 +184,11 @@ CACHES = {
 }
 INTERNAL_IPS = ["192.168.11.136"]
 SITE_ID = 1
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ]
+}
