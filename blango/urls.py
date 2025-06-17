@@ -6,7 +6,7 @@ from django_registration.backends.activation.views import RegistrationView
 from blango_auth.forms import BlangoRegistrationForm
 import blango_auth.views
 import blog.views
-
+import debug_toolbar
 urlpatterns = [
     path('admin/', admin.site.urls),
     
@@ -23,8 +23,6 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    import debug_toolbar
     urlpatterns += [
         path("__debug__/", include(debug_toolbar.urls)),
-    ]
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
