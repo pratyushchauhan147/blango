@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from blog.models import Post
 from blog.forms import CommentForm
+from django.urls import reverse
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_cookie
 import logging
@@ -43,6 +44,7 @@ def get_ip(request):
   from django.http import HttpResponse
   return HttpResponse(request.META['REMOTE_ADDR'])
 
-
 def post_table(request):
-    return render(request, "blog/post-table.html")  
+    return render(
+        request, "blog/post-table.html", {"post_list_url": reverse("post-list")}
+    )
